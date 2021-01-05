@@ -70,11 +70,32 @@ class AdminController {
   }
 
   async update({ request, response, params }) {
+    try {
+      const data = request.all();
 
+      const admin = await Admin.query().where('id', params.id).first();
+
+      admin.merge(data);
+      admin.save();
+
+      return response.status(200).json({msg: 'Usuário atualizado com sucesso', data: admin});
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({err: 'Falha interna, tente novamente.'});
+    }
   }
 
   async destroy({ request, response, params }) {
+    try {
+      const admin = await Admin.query().where('id', params.id).first();
 
+      admin.delete();
+
+      return response.status(200).json({msg: 'Usuário deletado com sucesso!'});
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({err: 'Falha interna, tente novamente.'});
+    }
   }
 }
 
