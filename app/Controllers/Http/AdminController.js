@@ -10,7 +10,7 @@ class AdminController {
       return admin;
     } catch (err) {
       console.log(err);
-      return response.status(500).json({err: 'Falha interna, tente novamente.'})
+      return response.status(500).json({ err: 'Falha interna, tente novamente.' })
     }
 
   }
@@ -20,13 +20,13 @@ class AdminController {
       const admin = await Admin.query().where('id', params.id).first();
 
       if (!admin) {
-        return response.status(404).json({msg: 'Usuário não encontrado!'})
+        return response.status(404).json({ msg: 'Usuário não encontrado!' })
       }
 
       return admin;
     } catch (err) {
       console.log(err);
-      return response.status(500).json({err: 'Falha interna, tente novamente.'})
+      return response.status(500).json({ err: 'Falha interna, tente novamente.' })
     }
   }
 
@@ -39,11 +39,11 @@ class AdminController {
       const verifyUsername = await User.query().where('username', data.username).first();
 
       if (verifyEmail) {
-        return response.status(400).json({msg: 'Email já cadastrado!'})
+        return response.status(400).json({ msg: 'Email já cadastrado!' })
       }
 
       if (verifyUsername) {
-        return response.status(400).json({msg: 'Usuário já cadastrado!'})
+        return response.status(400).json({ msg: 'Usuário já cadastrado!' })
       }
 
       const user = await User.create({
@@ -62,10 +62,10 @@ class AdminController {
         cpf: data.cpf,
       });
 
-      return response.status(200).json({msg: 'Usuário criado com sucesso!', data: {user, admin} })
-    } catch(err) {
+      return response.status(200).json({ msg: 'Usuário criado com sucesso!', data: { user, admin } })
+    } catch (err) {
       console.log(err);
-      return response.status(500).json({err: 'Falha interna, tente novamente'});
+      return response.status(500).json({ err: 'Falha interna, tente novamente' });
     }
   }
 
@@ -78,10 +78,10 @@ class AdminController {
       admin.merge(data);
       admin.save();
 
-      return response.status(200).json({msg: 'Usuário atualizado com sucesso', data: admin});
+      return response.status(200).json({ msg: 'Usuário atualizado com sucesso', data: admin });
     } catch (err) {
       console.log(err);
-      return response.status(500).json({err: 'Falha interna, tente novamente.'});
+      return response.status(500).json({ err: 'Falha interna, tente novamente.' });
     }
   }
 
@@ -91,10 +91,10 @@ class AdminController {
 
       admin.delete();
 
-      return response.status(200).json({msg: 'Usuário deletado com sucesso!'});
+      return response.status(200).json({ msg: 'Usuário deletado com sucesso!' });
     } catch (err) {
       console.log(err);
-      return response.status(500).json({err: 'Falha interna, tente novamente.'});
+      return response.status(500).json({ err: 'Falha interna, tente novamente.' });
     }
   }
 }
