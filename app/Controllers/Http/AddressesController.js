@@ -1,9 +1,8 @@
 'use strict'
 
 const Addresses = use('App/Models/Addresses');
-
 class AddressesController {
-  async index({ request, response }) {
+  async index({ response }) {
     try {
       const addresses = await Addresses.all();
 
@@ -24,7 +23,11 @@ class AddressesController {
 
   async show({ params, response }) {
     try {
-      const address = await Addresses.query.where('id', params.id).first();
+      const address = await Addresses.query().where('id', params.id).first();
+
+      if (!address) {
+        return response.status(404).json({ msg: 'Endereço não encontrado' })
+      }
 
       return address;
     } catch (err) {
@@ -41,9 +44,13 @@ class AddressesController {
     }
   }
 
-  async store({ }) {
+  async store({ request, response }) {
     try {
+      const data = request.all();
 
+      const address = await Addresses.create(data);
+
+      return address;
     } catch (err) {
       const errors = [];
 
@@ -58,9 +65,12 @@ class AddressesController {
     }
   }
 
-  async update({ }) {
+  async update({ request, params, response }) {
     try {
+      const data = request.all();
+      const address = await Addresses.query().where('id', params.id).update(data)
 
+      return address;
     } catch (err) {
       const errors = [];
 
@@ -75,9 +85,13 @@ class AddressesController {
     }
   }
 
-  async destroy({ }) {
+  async destroy({ params, response }) {
     try {
+      const address = await Addresses.query().where('id', params.id).update({
+        active: false
+      })
 
+      return address;
     } catch (err) {
       const errors = [];
 

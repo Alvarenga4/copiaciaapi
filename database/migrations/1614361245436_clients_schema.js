@@ -9,7 +9,7 @@ class ClientsSchema extends Schema {
       table.increments()
       table.integer('user_id').unsigned().references('id').inTable('users')
       table.integer('company_id').unsigned().references('id').inTable('master_companies')
-      table.integer('address_id').unsigned().references('id').inTable('addresses_clients')
+      table.integer('address_id').unsigned().references('id').inTable('addresses')
       table.string('name')
       table.string('last_name')
       table.string('cellphone')
