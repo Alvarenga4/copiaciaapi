@@ -1,5 +1,6 @@
 'use strict'
 
+const User = use('App/Models/User');
 const Employee = use('App/Models/Employee');
 class EmployeeController {
   async index({ response }) {

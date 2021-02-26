@@ -3,11 +3,20 @@
 const MasterCompany = use('App/Models/MasterCompany');
 
 class MasterCompanyController {
-
-  async store({ request, response }) {
+  async index({ request, response }) {
     try {
-      const data = request.all();
-      const masterCompany = await MasterCompany.create(data);
+      const { cnpj } = request.headers();
+
+      if (!cnpj) {
+        const masterCompany = await MasterCompany.all();
+        return masterCompany
+      }
+
+      const masterCompany = await MasterCompany.query().where('cnpj', cnpj).first();
+
+      if (!masterCompany) {
+        return response.status(404).json({ msg: 'Empresa não encontrada!' })
+      }
 
       return masterCompany;
     } catch (err) {
@@ -24,14 +33,10 @@ class MasterCompanyController {
     }
   }
 
-  async show({ request, response }) {
+  async store({ request, response }) {
     try {
-      const { cnpj } = request.headers();
-      const masterCompany = await MasterCompany.query().where('cnpj', cnpj).first();
-
-      if (!masterCompany) {
-        return response.status(404).json({ msg: 'Empresa não encontrada!' })
-      }
+      const data = request.all();
+      const masterCompany = await MasterCompany.create(data);
 
       return masterCompany;
     } catch (err) {

@@ -4,15 +4,17 @@
 const Schema = use('Schema')
 
 class EmployeeSchema extends Schema {
-  up () {
+  up() {
     this.table('employees', (table) => {
       // alter table
+      table.integer('access_id').unsigned().references('id').inTable('access_levels')
     })
   }
 
-  down () {
+  down() {
     this.table('employees', (table) => {
       // reverse alternations
+      table.integer('access_id')
     })
   }
 }

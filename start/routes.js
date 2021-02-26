@@ -2,6 +2,8 @@
 
 const Route = use('Route')
 
+const AuthController = use('App/Controllers/Http/AuthController.js');
+
 const AdminController = use('App/Controllers/Http/AdminController.js');
 const MasterCompanyController = use('App/Controllers/Http/MasterCompanyController.js');
 const AccessLevelController = use('App/Controllers/Http/AccessLevelController.js');
@@ -12,9 +14,11 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 });
 
+Route.post('/auth', 'AuthController.store');
+
 Route.resource('/admin', 'AdminController');
 
-Route.get('/mastercompany', 'MasterCompanyController.show');
+Route.get('/mastercompany', 'MasterCompanyController.index');
 Route.post('/mastercompany', 'MasterCompanyController.store');
 
 Route.get('/accesslevel', 'AccessLevelController.index');
