@@ -26,7 +26,7 @@ class EmployeeController {
       const employee = await Employee.query().where('id', params.id).first();
 
       if (!employee) {
-        return response.status(404).json({ msg: 'Endereço não encontrado' })
+        return response.status(404).json({ msg: 'Funcionário não encontrado' })
       }
 
       return employee;
