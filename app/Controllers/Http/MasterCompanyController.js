@@ -15,8 +15,16 @@ class MasterCompanyController {
 
       return masterCompany;
     } catch (err) {
-      console.log(err);
-      return response.status(500).json({ err: 'Falha interna, tente novamente.' })
+      const errors = [];
+
+      if (err) {
+        errors.push(err);
+        return response.status(500).json(errors);
+      } else {
+        return response.status(500).json({
+          err: 'Internal Server Error'
+        })
+      }
     }
   }
 }

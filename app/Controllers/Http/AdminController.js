@@ -9,8 +9,16 @@ class AdminController {
 
       return admin;
     } catch (err) {
-      console.log(err);
-      return response.status(500).json({ err: 'Falha interna, tente novamente.' })
+      const errors = [];
+
+      if (err) {
+        errors.push(err);
+        return response.status(500).json(errors);
+      } else {
+        return response.status(500).json({
+          err: 'Internal Server Error'
+        })
+      }
     }
 
   }
@@ -22,11 +30,18 @@ class AdminController {
       if (!admin) {
         return response.status(404).json({ msg: 'Usuário não encontrado!' })
       }
-
       return admin;
     } catch (err) {
-      console.log(err);
-      return response.status(500).json({ err: 'Falha interna, tente novamente.' })
+      const errors = [];
+
+      if (err) {
+        errors.push(err);
+        return response.status(500).json(errors);
+      } else {
+        return response.status(500).json({
+          err: 'Internal Server Error'
+        })
+      }
     }
   }
 
@@ -35,13 +50,11 @@ class AdminController {
       const data = request.all();
 
       const verifyEmail = await User.query().where('email', data.email).first();
-
       const verifyUsername = await User.query().where('username', data.username).first();
 
       if (verifyEmail) {
         return response.status(400).json({ msg: 'Email já cadastrado!' })
       }
-
       if (verifyUsername) {
         return response.status(400).json({ msg: 'Usuário já cadastrado!' })
       }
@@ -51,7 +64,6 @@ class AdminController {
         password: data.password,
         username: data.username
       });
-
       const admin = await Admin.create({
         user_id: user.id,
         name: data.name,
@@ -64,15 +76,22 @@ class AdminController {
 
       return response.status(200).json({ msg: 'Usuário criado com sucesso!', data: { user, admin } })
     } catch (err) {
-      console.log(err);
-      return response.status(500).json({ err: 'Falha interna, tente novamente' });
+      const errors = [];
+
+      if (err) {
+        errors.push(err);
+        return response.status(500).json(errors);
+      } else {
+        return response.status(500).json({
+          err: 'Internal Server Error'
+        })
+      }
     }
   }
 
   async update({ request, response, params }) {
     try {
       const data = request.all();
-
       const admin = await Admin.query().where('id', params.id).first();
 
       admin.merge(data);
@@ -81,7 +100,16 @@ class AdminController {
       return response.status(200).json({ msg: 'Usuário atualizado com sucesso', data: admin });
     } catch (err) {
       console.log(err);
-      return response.status(500).json({ err: 'Falha interna, tente novamente.' });
+      const errors = [];
+
+      if (err) {
+        errors.push(err);
+        return response.status(500).json(errors);
+      } else {
+        return response.status(500).json({
+          err: 'Internal Server Error'
+        })
+      }
     }
   }
 
@@ -93,8 +121,16 @@ class AdminController {
 
       return response.status(200).json({ msg: 'Usuário deletado com sucesso!' });
     } catch (err) {
-      console.log(err);
-      return response.status(500).json({ err: 'Falha interna, tente novamente.' });
+      const errors = [];
+
+      if (err) {
+        errors.push(err);
+        return response.status(500).json(errors);
+      } else {
+        return response.status(500).json({
+          err: 'Internal Server Error'
+        })
+      }
     }
   }
 }

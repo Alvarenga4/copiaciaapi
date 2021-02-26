@@ -12,7 +12,6 @@ class AccessLevelController {
       const errors = [];
 
       if (err) {
-        console.log(err)
         errors.push(err);
         return response.status(500).json(errors);
       } else {
@@ -32,13 +31,12 @@ class AccessLevelController {
       const errors = [];
 
       if (err) {
-        console.log(err)
         errors.push(err);
         return response.status(500).json(errors);
       } else {
         return response.status(500).json({
           err: 'Internal Server Error'
-        })
+        });
       }
     }
   }
