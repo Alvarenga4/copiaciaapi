@@ -15,6 +15,7 @@ Route.get('/', () => {
 Route.resource('/admin', 'AdminController');
 
 Route.get('/mastercompany', 'MasterCompanyController.show');
+Route.post('/mastercompany', 'MasterCompanyController.store');
 
 Route.get('/accesslevel', 'AccessLevelController.index');
 Route.post('/accesslevel', 'AccessLevelController.create');
