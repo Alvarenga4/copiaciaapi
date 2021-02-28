@@ -9,6 +9,7 @@ const MasterCompanyController = use('App/Controllers/Http/MasterCompanyControlle
 const AccessLevelController = use('App/Controllers/Http/AccessLevelController.js');
 const AddressesController = use('App/Controllers/Http/AddressesController.js');
 const EmployeeController = use('App/Controllers/Http/EmployeeController.js');
+const ClientController = use('App/Controllers/Http/ClientController.js');
 
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
@@ -27,3 +28,5 @@ Route.post('/accesslevel', 'AccessLevelController.create');
 Route.resource('/addresses', 'AddressesController');
 
 Route.resource('/employee', 'EmployeeController');
+
+Route.resource('clients', 'ClientController')

@@ -8,11 +8,14 @@ class MasterCompanyController {
       const { cnpj } = request.headers();
 
       if (!cnpj) {
-        const masterCompany = await MasterCompany.all();
+        const masterCompany = await MasterCompany
+          .query()
+          .with('employee')
+          .fetch();
         return masterCompany
       }
 
-      const masterCompany = await MasterCompany.query().with('employee').where('cnpj', cnpj).first();
+      const masterCompany = await MasterCompany.query().with('employee').with('clients').where('cnpj', cnpj).first();
 
       if (!masterCompany) {
         return response.status(404).json({ msg: 'Empresa não encontrada!' })
