@@ -4,6 +4,9 @@
 const Model = use('Model')
 
 class Admin extends Model {
+  user() {
+    return this.belongsTo('App/Models/User');
+  }
 }
 
 module.exports = Admin

@@ -5,7 +5,7 @@ const Admin = use('App/Models/Admin');
 class AdminController {
   async index({ response }) {
     try {
-      const admin = await Admin.all();
+      const admin = await Admin.query().with('user').fetch();
 
       return admin;
     } catch (err) {
@@ -25,13 +25,14 @@ class AdminController {
 
   async show({ params, response }) {
     try {
-      const admin = await Admin.query().where('id', params.id).first();
+      const admin = await Admin.query().where('id', params.id).with('user').first();
 
       if (!admin) {
         return response.status(404).json({ msg: 'Usuário não encontrado!' })
       }
       return admin;
     } catch (err) {
+      console.log(err)
       const errors = [];
 
       if (err) {

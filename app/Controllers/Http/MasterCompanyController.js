@@ -12,7 +12,7 @@ class MasterCompanyController {
         return masterCompany
       }
 
-      const masterCompany = await MasterCompany.query().where('cnpj', cnpj).first();
+      const masterCompany = await MasterCompany.query().with('employee').where('cnpj', cnpj).first();
 
       if (!masterCompany) {
         return response.status(404).json({ msg: 'Empresa não encontrada!' })

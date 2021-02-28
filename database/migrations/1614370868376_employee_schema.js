@@ -7,14 +7,14 @@ class EmployeeSchema extends Schema {
   up() {
     this.table('employees', (table) => {
       // alter table
-      table.integer('access_id').unsigned().references('id').inTable('access_levels')
+      table.integer('access_level_id').unsigned().references('id').inTable('access_levels')
     })
   }
 
   down() {
     this.table('employees', (table) => {
       // reverse alternations
-      table.integer('access_id')
+      table.integer('access_level_id')
     })
   }
 }

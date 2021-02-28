@@ -24,7 +24,14 @@ class EmployeeController {
 
   async show({ params, response }) {
     try {
-      const employee = await Employee.query().where('id', params.id).first();
+      const employee = await Employee
+        .query()
+        .with('access_level')
+        .with('user')
+        .with('address')
+        .with('company')
+        .where('id', params.id)
+        .first();
 
       if (!employee) {
         return response.status(404).json({ msg: 'Funcionário não encontrado' })
@@ -32,6 +39,7 @@ class EmployeeController {
 
       return employee;
     } catch (err) {
+      console.log
       const errors = [];
 
       if (err) {
